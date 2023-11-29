@@ -4,6 +4,21 @@
 var text = localStorage.getItem("text")
 
 var calenderBlocks = [
+  {
+  id: '1',
+  hour: '9',
+  Meridiem: 'am',
+  },
+  {
+  id: '2',
+  hour: '10',
+  Meridiem: 'am',
+  },
+  {
+  id: '3',
+  hour: '11',
+  Meridiem: 'am',
+  },
 {
   id: '4',
   hour: '12',

@@ -57,10 +57,13 @@ calenderBlocks.forEach(function(block){
   var blockEL = $('<div>')
   .attr("id", block.id)
   .addClass('col-2 col-md-1 hour text-center py-3')
-  
   .text(block.hour + '' + block.Meridiem)
-  blockContainer.append(blockEL)
-})
+  var hourContainer = $('<div>')
+  .addClass('block-Container')
+  .append(blockEL)
+
+  blockContainer.append(hourContainer)
+}) 
 
 
 $(function (event) {

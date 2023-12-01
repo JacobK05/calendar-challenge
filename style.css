@@ -29,6 +29,9 @@ textarea {
   color: #000000;
   border-top: 1px dashed #000000;
 }
+div.block-container {
+padding: 5px;
+}
 
 #hour-past {
   background-color: #d3d3d3;

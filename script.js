@@ -4,9 +4,8 @@
 var today = dayjs()
 var formatDate = today.format('MMMM, DD YYYY')
 $('#currentDay').text(formatDate);
-var before = dayjs().isBefore(dayjs())
 var present = dayjs().isSame(dayjs())
-var after = dayjs().isAfter(dayjs())
+
 
 
 var calenderBlocks = [
@@ -27,25 +26,36 @@ var calenderBlocks = [
   calenderBlocks.forEach(function(block){
     var blockEL = $('<div>')
     .attr("id", block.id)
-    .addClass('col-2 col-md-1 hour text-center py-3')
+    .addClass('col-2 col-md-1 hour text-center py-3 float-left')
     .text(block.hour + '' + block.Meridiem)
     var hourContainer = $('<div>')
-    .addClass('block-Container')
+    .addClass('row')
     .css('padding-bottom', '5px')
     .append(blockEL)
-
     var textBox = $('<textarea>')
-    .addClass('row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3"')
-    .append(textBox)
+    .addClass('col-10 col-md-11' + boxColor(block.hour))
+    .appendTo(hourContainer)
 
-
-
-
-
-  
-    hourContainer.append(textBox)
     blockContainer.append(hourContainer)
   })
+
+function boxColor(time) {
+  var timeNow = dayjs().format("H A");
+  var timeEntry = dayjs(time, 'H A')
+    if (timeNow.hour < timeEntry.hour()){
+      return "future"
+    }
+    else if (timeNow.hour < timeEntry.hour()) {
+      return "past"
+    }
+    else {
+      return "present"
+    }
+
+
+}
+
+
 
 
 

@@ -37,38 +37,43 @@ var calenderBlocks = [
     var textBox = $('<textarea>')
     .addClass('col-10 col-md-11 ' + boxColor(block.hour))
     .appendTo(hourContainer);
-  
+
+    var saveButton = $('<button>')
+    .addClass('saveBtn')
+    .text('Save')
+    .appendTo(hourContainer)
+    
     blockContainer.append(hourContainer);
   });
 
   function boxColor(hour) {
     var timeNow = dayjs();
-    var timeEntry = dayjs(hour + ' ' + now, 'h A MMMM, DD YYYY');
-  
+    var timeEntry = dayjs(hour, 'h A');
+
     console.log("timeNow:", timeNow.format('MMMM, DD YYYY H A'));
     console.log("timeEntry:", timeEntry.format('MMMM, DD YYYY H A'));
   
-    if (timeNow.isBefore(timeEntry)) {
+    if (timeNow.isBefore(timeEntry, 'hour')) {
       return "future";
-    } else if (timeNow.isAfter(timeEntry)) {
+    } else if (timeNow.isAfter(timeEntry, 'hour')) {
       return "past";
     } else {
       return "present";
     }
   }
+  
 
 
-
-
+  
 
 $(function (event) {
-  $('.saveBtn').on("click", function(){
-    event.preventDefault();
-    console.log('clicked')
-    var text = localStorage.getItem("text")
-    localStorage.setItem('text', text)
-  
-  })
+  var savedText = localStorage.getItem("text");
+
+  $('.saveBtn').on("click", function () {
+    var blockId = $(this).parent().attr('id');
+    var text = $(this).siblings('textarea').val();
+    localStorage.setItem(blockId, text);
+  });
   
 });
   // TODO: Add a listener for click events on the save button. This code should

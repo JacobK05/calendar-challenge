@@ -2,9 +2,9 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var today = dayjs()
-var formatDate = today.format('MMMM, DD YYYY')
-$('#currentDay').text(formatDate);
-var present = dayjs().isSame(dayjs())
+// var now = today.format('MMMM, DD YYYY')
+var now = dayjs().format('MMMM, DD YYYY');
+$('#currentDay').text(now);
 
 
 
@@ -23,37 +23,39 @@ var calenderBlocks = [
   console.log(calenderBlocks)
 
   var blockContainer = $(".container")
-  calenderBlocks.forEach(function(block){
+  calenderBlocks.forEach(function(block) {
     var blockEL = $('<div>')
-    .attr("id", block.id)
-    .addClass('col-2 col-md-1 hour text-center py-3 float-left')
-    .text(block.hour + '' + block.Meridiem)
+      .attr("id", block.id)
+      .addClass('col-2 col-md-1 hour text-center py-3 float-left')
+      .text(block.hour + '' + block.Meridiem);
+  
     var hourContainer = $('<div>')
-    .addClass('row')
-    .css('padding-bottom', '5px')
-    .append(blockEL)
+      .addClass('row')
+      .css('padding-bottom', '5px')
+      .append(blockEL);
+  
     var textBox = $('<textarea>')
-    .addClass('col-10 col-md-11' + boxColor(block.hour))
-    .appendTo(hourContainer)
+    .addClass('col-10 col-md-11 ' + boxColor(block, now))
+    .appendTo(hourContainer);
+  
+    blockContainer.append(hourContainer);
+  });
 
-    blockContainer.append(hourContainer)
-  })
-
-function boxColor(time) {
-  var timeNow = dayjs().format("H A");
-  var timeEntry = dayjs(time, 'H A')
-    if (timeNow.hour < timeEntry.hour()){
-      return "future"
+  function boxColor(block, now) {
+    var timeNow = dayjs(now, 'MMMM, DD YYYY');
+    var timeEntry = dayjs(block.hour + ' ' + block.Meridiem, 'h A');
+  
+    console.log("timeNow:", timeNow.format('MMMM, DD YYYY H A'));
+    console.log("timeEntry:", timeEntry.format('MMMM, DD YYYY H A'));
+  
+    if (timeNow.isBefore(timeEntry)) {
+      return "future";
+    } else if (timeNow.isAfter(timeEntry)) {
+      return "past";
+    } else {
+      return "present";
     }
-    else if (timeNow.hour < timeEntry.hour()) {
-      return "past"
-    }
-    else {
-      return "present"
-    }
-
-
-}
+  }
 
 
 

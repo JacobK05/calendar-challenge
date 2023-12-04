@@ -3,7 +3,7 @@
 // in the html.
 var today = dayjs()
 // var now = today.format('MMMM, DD YYYY')
-var now = dayjs().format('MMMM, DD YYYY');
+var now = dayjs().format('MMMM, DD YYYY ');
 $('#currentDay').text(now);
 
 
@@ -35,15 +35,15 @@ var calenderBlocks = [
       .append(blockEL);
   
     var textBox = $('<textarea>')
-    .addClass('col-10 col-md-11 ' + boxColor(block, now))
+    .addClass('col-10 col-md-11 ' + boxColor(block.hour))
     .appendTo(hourContainer);
   
     blockContainer.append(hourContainer);
   });
 
-  function boxColor(block, now) {
-    var timeNow = dayjs(now, 'MMMM, DD YYYY');
-    var timeEntry = dayjs(block.hour + ' ' + block.Meridiem, 'h A');
+  function boxColor(hour) {
+    var timeNow = dayjs();
+    var timeEntry = dayjs(hour + ' ' + now, 'h A MMMM, DD YYYY');
   
     console.log("timeNow:", timeNow.format('MMMM, DD YYYY H A'));
     console.log("timeEntry:", timeEntry.format('MMMM, DD YYYY H A'));

@@ -63,19 +63,33 @@ var calenderBlocks = [
   }
   
 
-
-  
-
-$(function (event) {
-  var savedText = localStorage.getItem("text");
-
-  $('.saveBtn').on("click", function () {
-    var blockId = $(this).parent().attr('id');
-    var text = $(this).siblings('textarea').val();
-    localStorage.setItem(blockId, text);
+  $(function (event) {
+    preventDefault(event)
+    var savedText = localStorage.getItem("text");
+    if (savedText) {
+      savedText = JSON.parse(savedText); // Parse the savedText string into an object
+      $('.saveBtn').each(function () {
+        var blockId = parseInt($(this).parent().attr('id'));
+        var textarea = $(this).siblings('textarea');
+        if (savedText[blockId]) {
+          textarea.val(savedText[blockId]);
+        }
+      });
+    }
+    
+    $('.saveBtn').on("click", function () {
+      var blockId = parseInt($(this).parent().attr('id'));
+      var text = $(this).siblings('textarea').val();
+      savedText = localStorage.getItem("text");
+      if (!savedText) {
+        savedText = {};
+      } else {
+        savedText = JSON.parse(savedText); // Parse the savedText string into an object
+      }
+      savedText[blockId] = text;
+      localStorage.setItem("text", JSON.stringify(savedText));
+    });
   });
-  
-});
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener

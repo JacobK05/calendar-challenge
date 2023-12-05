@@ -9,4 +9,4 @@ For this challenge i wanted to create a work schedule calendar. That recorded ta
 
 ## usage 
 
-Visit the live url to use the calendar
+Visit the live url to use the calendar https://jacobk05.github.io/calendar-challenge/ 
